@@ -2,20 +2,29 @@
 
     "manifest_version": 2,
     "name": "LinguaLeo Complicator",
-    "version": "1.1",
+    "version": "2.0",
   
     "description": "Hides ansvers on the repetition training",
-  
+    "homepage_url": "https://github.com/YuriiZhydetskyi/LinguaLeo-Complicator",
     "icons": {
       "48": "icons/Logo-48.png",
       "96": "icons/Logo-96.png"
     },
+
+    "permissions": [
+      "webRequest",
+      "<all_urls>"
+    ],
   
     "content_scripts": [
       {
         "matches": ["https://lingualeo.com/ru/training/repetition"],
         "js": ["repetition_complicator.js"]
       }
-    ]
+    ],
+
+    "background": {
+      "scripts": ["statuses_resetter.js"]
+    }
   
   }
