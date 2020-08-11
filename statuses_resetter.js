@@ -1,6 +1,25 @@
+let getting = browser.storage.sync.get("statusesResetter");
+let isStatusesResetternOn = true;
+getting.then(onGot, onError);
+
+browser.runtime.onMessage.addListener((data) => {
+
+  if (data.message === "settings changes") {
+
+    getting = browser.storage.sync.get("statusesResetter");
+    getting.then(onRepetitionGot, onError);
+  } 
+});
+
+browser.webRequest.onBeforeRequest.addListener(
+  resetStatuses,
+  { urls: ["https://api.lingualeo.com/ProcessTraining"]},
+  ['requestBody']
+);
+
 function resetStatuses(requestDetails) {
 
-  if(!requestDetails.requestBody){
+  if(!requestDetails.requestBody || !isStatusesResetterOn){
     return;
   }
   
@@ -25,8 +44,15 @@ function resetStatuses(requestDetails) {
   fetch(request);
 }
 
-browser.webRequest.onBeforeRequest.addListener(
-  resetStatuses,
-  { urls: ["https://api.lingualeo.com/ProcessTraining"]},
-  ['requestBody']
-);
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
+function onGot(item) {
+ 
+  if (item.satusesResetter === undefined || item.satusesResetter) {
+    isStatusesResetterOn = true;
+  } else {
+    isRepetitionComplicatorOn = false;
+  }
+}
