@@ -1,7 +1,9 @@
-const FIRST_QUESTION_DELAY = 400;
+const FIRST_QUESTION_DELAY = 2000;
 const NEXT_QUESTION_DELAY = 600;
 const ANSVER_CLASS_NAME = "ll-Repetition__answer";
+const QUESTION_CLASS_NAME = "ll-Repetition__question-wrapper";
 let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);
+let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);
 
 let getting = browser.storage.sync.get("repetitionComplicator");
 let isRepetitionComplicatorOn = true;
@@ -9,14 +11,12 @@ getting.then(onRepetitionGot, onError);
 
 //TODO: considet to do this withot timeout
 setTimeout(() => hideAnsvers(), FIRST_QUESTION_DELAY);
-setTimeout(() => setListenerForClick(), FIRST_QUESTION_DELAY * 4); // *4 is to be shure that listeners will be added
+setTimeout(() => setListenerForClick(), FIRST_QUESTION_DELAY * 2); // *2 is to be shure that listeners will be added
 
 document.body.addEventListener("keydown", function (event) {
   switch (event.key) {
     case 'ArrowUp':
-      for (i = 0; i < allAnsvers.length; ++i) {
-        allAnsvers[i].style.visibility = 'visible';
-      }
+      showAnsvers();
       break;
     case 'ArrowLeft':
     case 'ArrowRight':
@@ -26,7 +26,7 @@ document.body.addEventListener("keydown", function (event) {
 });
 
 browser.runtime.onMessage.addListener((message) => {
-  
+
   if (message === "settings changed") {
     getting = browser.storage.sync.get("repetitionComplicator");
     getting.then(onRepetitionGot, onError);
@@ -39,6 +39,7 @@ function setListenerForClick() {
       setTimeout(() => hideAnsvers(), NEXT_QUESTION_DELAY);
     });
   }
+  questions[0].addEventListener("mousedown", showAnsvers);
 }
 
 function hideAnsvers() {
@@ -47,6 +48,13 @@ function hideAnsvers() {
     for (i = 0; i < allAnsvers.length; ++i) {
       allAnsvers[i].style.visibility = "hidden";
     }
+  }
+}
+
+function showAnsvers() {
+
+  for (i = 0; i < allAnsvers.length; ++i) {
+    allAnsvers[i].style.visibility = "visible";
   }
 }
 
