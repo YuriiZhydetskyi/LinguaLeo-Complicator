@@ -1,17 +1,27 @@
-const FIRST_QUESTION_DELAY = 2000;
-const NEXT_QUESTION_DELAY = 600;
+const FIRST_QUESTION_DELAY = 100;
+const NEXT_QUESTION_DELAY = 500;
 const ANSVER_CLASS_NAME = "ll-Repetition__answer";
 const QUESTION_CLASS_NAME = "ll-Repetition__question-wrapper";
-let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);
-let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);
+
+let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);;
+let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);;
 
 let getting = browser.storage.sync.get("repetitionComplicator");
 let isRepetitionComplicatorOn = true;
 getting.then(onRepetitionGot, onError);
 
-//TODO: considet to do this withot timeout
-setTimeout(() => hideAnsvers(), FIRST_QUESTION_DELAY);
-setTimeout(() => setListenerForClick(), FIRST_QUESTION_DELAY * 2); // *2 is to be shure that listeners will be added
+function applyBindings(){
+
+  if(allAnsvers.length !== 2){
+    setTimeout(() => applyBindings(), FIRST_QUESTION_DELAY);
+    return;
+  }
+
+  hideAnsvers();
+  setListenerForClick();
+}
+
+setTimeout(() => applyBindings(), FIRST_QUESTION_DELAY);
 
 document.body.addEventListener("keydown", function (event) {
   switch (event.key) {
@@ -39,7 +49,7 @@ function setListenerForClick() {
       setTimeout(() => hideAnsvers(), NEXT_QUESTION_DELAY);
     });
   }
-  questions[0].addEventListener("mousedown", showAnsvers);
+  questions[0]?.addEventListener("mousedown", showAnsvers);
 }
 
 function hideAnsvers() {

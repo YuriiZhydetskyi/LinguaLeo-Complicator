@@ -26,7 +26,7 @@ function resetStatuses(requestDetails) {
   const rawStr = String.fromCharCode.apply(null, new Uint8Array(requestDetails.requestBody.raw[0].bytes));
   const requestBody = JSON.parse(rawStr);
 
-  const words = requestBody.data.words;
+  const words = requestBody?.data?.words;
   if(!words)
     return;
   
