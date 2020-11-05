@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "LinguaLeo Complicator",
-    "version": "3.2.1",
+    "version": "3.3",
   
     "description": "Hides answers on the repetition training",
     "homepage_url": "https://github.com/YuriiZhydetskyi/LinguaLeo-Complicator",
@@ -27,7 +27,7 @@
     ],
 
     "background": {
-      "scripts": ["statuses_resetter.js"]
+      "scripts": ["statuses_resetter.js", "requests_listener.js"]
     },
 
     "browser_specific_settings": {

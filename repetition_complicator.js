@@ -1,10 +1,10 @@
-const FIRST_QUESTION_DELAY = 100;
+const FIRST_QUESTION_DELAY = 50;
 const NEXT_QUESTION_DELAY = 500;
 const ANSVER_CLASS_NAME = "ll-Repetition__answer";
 const QUESTION_CLASS_NAME = "ll-Repetition__question-wrapper";
 
-let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);;
-let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);;
+let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);
+let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);
 
 let getting = browser.storage.sync.get("repetitionComplicator");
 let isRepetitionComplicatorOn = true;
@@ -40,6 +40,8 @@ browser.runtime.onMessage.addListener((message) => {
   if (message === "settings changed") {
     getting = browser.storage.sync.get("repetitionComplicator");
     getting.then(onRepetitionGot, onError);
+  } else if (message === "new repetiiton"){
+    applyBindings();
   }
 });
 

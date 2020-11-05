@@ -1,5 +1,5 @@
 let getting = browser.storage.sync.get("statusesResetter");
-let isStatusesResetternOn = true;
+let isStatusesResetterOn = true;
 getting.then(onGot, onError);
 
 browser.runtime.onMessage.addListener((data) => {
