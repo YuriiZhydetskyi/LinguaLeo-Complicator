@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "LinguaLeo Complicator",
-    "version": "3.3",
+    "version": "3.3.2",
   
     "description": "Hides answers on the repetition training",
     "homepage_url": "https://github.com/YuriiZhydetskyi/LinguaLeo-Complicator",
@@ -21,8 +21,8 @@
   
     "content_scripts": [
       {
-        "matches": ["https://lingualeo.com/ru/training/repetition", 
-          "https://lingualeo.com/ru/training/repetition?utm_action=10"],
+        "matches": [
+          "https://lingualeo.com/*/training/repetition*"],
         "js": ["repetition_complicator.js"]
       }
     ],

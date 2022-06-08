@@ -10,7 +10,6 @@ function onNewRepetitionRequest(requestDetails) {
         return;
     }
 
-    debugger;
     const rawStr = String.fromCharCode.apply(null, new Uint8Array(requestDetails.requestBody.raw[0].bytes));
     const requestBody = JSON.parse(rawStr);
 

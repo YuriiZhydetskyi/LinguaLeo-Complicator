@@ -1,9 +1,9 @@
 const FIRST_QUESTION_DELAY = 50;
 const NEXT_QUESTION_DELAY = 500;
-const ANSVER_CLASS_NAME = "ll-Repetition__answer";
-const QUESTION_CLASS_NAME = "ll-Repetition__question-wrapper";
+const ANSWER_CLASS_NAME = "ll-repetition__answer";
+const QUESTION_CLASS_NAME = "ll-repetition__question-wrapper";
 
-let allAnsvers = document.getElementsByClassName(ANSVER_CLASS_NAME);
+let allAnsvers = document.getElementsByClassName(ANSWER_CLASS_NAME);
 let questions = document.getElementsByClassName(QUESTION_CLASS_NAME);
 
 let getting = browser.storage.sync.get("repetitionComplicator");
@@ -55,7 +55,6 @@ function setListenerForClick() {
 }
 
 function hideAnsvers() {
-
   if (isRepetitionComplicatorOn) {
     for (i = 0; i < allAnsvers.length; ++i) {
       allAnsvers[i].style.visibility = "hidden";
